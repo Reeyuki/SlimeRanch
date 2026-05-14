@@ -1,0 +1,158 @@
+ManifestFileVersion: 0
+CRC: 2606390138
+Hashes:
+  AssetFileHash:
+    serializedVersion: 2
+    Hash: 371afca17d6b0aaa57ba7dc4f0fdab2a
+  TypeTreeHash:
+    serializedVersion: 2
+    Hash: 26d38e5a530b459447816975f8f4a796
+HashAppended: 0
+ClassTypes:
+- Class: 1
+  Script: {instanceID: 0}
+- Class: 4
+  Script: {instanceID: 0}
+- Class: 21
+  Script: {instanceID: 0}
+- Class: 28
+  Script: {instanceID: 0}
+- Class: 48
+  Script: {instanceID: 0}
+- Class: 74
+  Script: {instanceID: 0}
+- Class: 83
+  Script: {instanceID: 0}
+- Class: 91
+  Script: {instanceID: 0}
+- Class: 95
+  Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 306cc8c2b49d7114eaa3623786fc2126, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 3245ec927659c4140ac4f8d17403cc18, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 47b5dd336cfc8b44e8d2d5a463d88e1c, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1ce087e80c1d2244293f3091263e6146, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 30649d3a9faa99c48a7b1166b86bf2a0, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 71c1514a6bd24e1e882cebbe1904ce04, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: cb31f8dbc26f55545b9dfea71d008282, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
+- Class: 212
+  Script: {instanceID: 0}
+- Class: 213
+  Script: {instanceID: 0}
+- Class: 222
+  Script: {instanceID: 0}
+- Class: 224
+  Script: {instanceID: 0}
+- Class: 225
+  Script: {instanceID: 0}
+SerializeReferenceClassIdentifiers: []
+Assets:
+- Assets/UI/Textures/credits/1_04.png
+- Assets/UI/Textures/credits/star_glow_08.png
+- Assets/UI/Textures/credits/house_upper.png
+- Assets/UI/Textures/credits/slimes/3_ship.png
+- Assets/UI/Textures/credits/star_glow_04.png
+- Assets/UI/Textures/credits/0_13.png
+- Assets/UI/Textures/credits/slimes/phosphor.png
+- Assets/UI/Textures/credits/planet.png
+- Assets/UI/Textures/credits/CreditScroll_anim.anim
+- Assets/UI/Textures/credits/bubbles_purple.png
+- Assets/UI/Textures/credits/0_09.png
+- Assets/UI/Textures/credits/1_05.png
+- Assets/UI/Textures/credits/slimes/2_tarr.png
+- Assets/UI/Textures/credits/cliffs.png
+- Assets/UI/Textures/credits/bea_cloud_left.png
+- Assets/UI/Textures/credits/0_10.png
+- Assets/UI/Textures/credits/0_14.png
+- Assets/UI/Textures/credits/star_casey.png
+- Assets/UI/Textures/credits/streetlights_blue.png
+- Assets/UI/Textures/credits/big_cloud.png
+- Assets/UI/Textures/credits/1_07.png
+- Assets/UI/Textures/credits/star_single.png
+- Assets/UI/Textures/credits/0_02.png
+- Assets/UI/Textures/credits/1_06.png
+- Assets/UI/Textures/credits/slimes/tabby.png
+- Assets/UI/Textures/credits/0_07.png
+- Assets/UI/Textures/credits/star_glow_03.png
+- Assets/UI/Textures/credits/0_04.png
+- Assets/UI/Textures/credits/0_15.png
+- Assets/UI/Textures/credits/1_01.png
+- Assets/UI/Textures/credits/1_02.png
+- Assets/UI/Textures/credits/star_bea.png
+- Assets/UI/Textures/credits/bea_cloud_large.png
+- Assets/UI/Textures/credits/bubbles.png
+- Assets/UI/Textures/credits/slimes/4_ringSlime.png
+- Assets/UI/Textures/credits/cloud_small.png
+- Assets/UI/Textures/credits/Credit_Anim.controller
+- Assets/UI/Textures/credits/0_08.png
+- Assets/UI/Textures/credits/1_17.png
+- Assets/UI/Textures/credits/0_06.png
+- Assets/UI/Textures/credits/nebula_small.png
+- Assets/UI/Textures/credits/star_glow_top.png
+- Assets/UI/Textures/credits/bea_cloud_small.png
+- Assets/UI/Textures/credits/1_13.png
+- Assets/UI/Textures/credits/cloud_med.png
+- Assets/UI/Textures/credits/0_05.png
+- Assets/UI/Textures/credits/star_glow_01.png
+- Assets/UI/Textures/credits/slimes/rad.png
+- Assets/UI/Textures/credits/slimes/honey.png
+- Assets/UI/Textures/credits/Credit_screen.prefab
+- Assets/UI/Textures/credits/0_17.png
+- Assets/UI/Textures/credits/slimes/2_ship.png
+- Assets/UI/Textures/credits/Fade2Black.prefab
+- Assets/UI/Textures/credits/slimes/3_goldSlime.png
+- Assets/UI/Textures/credits/slimes/boom.png
+- Assets/UI/Textures/credits/1_12.png
+- Assets/UI/Textures/credits/planet_clouds.png
+- Assets/UI/Textures/credits/0_01.png
+- Assets/UI/Textures/credits/casey.png
+- Assets/UI/Textures/credits/1_09.png
+- Assets/UI/Textures/credits/bea_cloud_upper.png
+- Assets/UI/Textures/credits/0_12.png
+- Assets/UI/Textures/credits/cloud_large.png
+- Assets/UI/Textures/credits/flowers.png
+- Assets/UI/Textures/credits/star_glow_05.png
+- Assets/Audio/Music/musicCredits.ogg
+- Assets/UI/Textures/credits/0_16.png
+- Assets/UI/Textures/credits/star_pink.png
+- Assets/UI/Textures/credits/bea.png
+- Assets/UI/Textures/credits/slimes/3_slimeAsteroids.png
+- Assets/UI/Textures/credits/star_glow_06.png
+- Assets/UI/Textures/credits/cloud_top.png
+- Assets/UI/Textures/credits/slimes/pink_rock.png
+- Assets/UI/Textures/credits/bubbles_2.png
+- Assets/UI/Textures/credits/streetlights.png
+- Assets/UI/Textures/credits/star_glow_07.png
+- Assets/UI/Textures/credits/star_glow_02.png
+- Assets/UI/Textures/credits/star_glow_09.png
+- Assets/UI/Textures/credits/1_15.png
+- Assets/UI/Textures/credits/1_16.png
+- Assets/UI/Textures/credits/1_14.png
+- Assets/UI/Textures/credits/city_backdrop.png
+- Assets/UI/Textures/credits/nebula.png
+- Assets/UI/Textures/credits/0_11.png
+- Assets/UI/Textures/credits/1_10.png
+- Assets/UI/Textures/credits/1_03.png
+- Assets/UI/Textures/credits/bea_clouds_full.png
+- Assets/UI/Textures/credits/star_glow_10.png
+- Assets/UI/Textures/credits/city.png
+- Assets/UI/Textures/credits/0_03.png
+- Assets/UI/Textures/credits/bea_cloud_lower.png
+- Assets/UI/Textures/credits/1_11.png
+- Assets/UI/Textures/credits/house_bottom.png
+- Assets/UI/Textures/credits/1_08.png
+Dependencies: []

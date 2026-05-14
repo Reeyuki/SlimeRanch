@@ -1,0 +1,220 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Slime Rancher</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: #121212;
+            color: #ffffff;
+            font-family: sans-serif;
+            overflow: hidden;
+        }
+
+        #unityContainer {
+            width: 100vw;
+            height: 100vh;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        #loadingScreen {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            background-color: #1a1a1a;
+            z-index: 10;
+        }
+
+        #progressBar {
+            width: 300px;
+            height: 20px;
+            background-color: #333;
+            border-radius: 10px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+
+        #progressFill {
+            width: 0%;
+            height: 100%;
+            background-color: #4CAF50;
+            transition: width 0.1s;
+        }
+
+        #fullscreenBtn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            z-index: 20;
+            padding: 10px 20px;
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            border: 1px solid #444;
+            border-radius: 5px;
+            cursor: pointer;
+            display: none;
+        }
+
+        #fullscreenBtn:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+    </style>
+    <script src="https://cdn.jsdelivr.net/gh/reeyuki/slimeranch@main/Build/UnityLoader.js"></script>
+</head>
+
+<body>
+    <div id="unityContainer"></div>
+    <div id="loadingScreen">
+        <h1>Slime Rancher</h1>
+        <div id="loadingText">Loading assets... 0%</div>
+        <div id="progressBar">
+            <div id="progressFill"></div>
+        </div>
+    </div>
+    <button id="fullscreenBtn" onclick="unityInstance.SetFullscreen(1)">Fullscreen</button>
+
+    <script>
+        function fixUrl(url) {
+            if (typeof url === 'string' && url.indexOf('blob:http') !== -1) {
+                return url.substring(url.indexOf('blob:http'));
+            }
+            return url;
+        }
+
+        const originalFetch = window.fetch;
+        window.fetch = function (url, options) {
+            if (typeof url === 'string') {
+                url = fixUrl(url);
+            } else if (url && url.url && url.url.indexOf('blob:http') !== -1) {
+                url = new Request(fixUrl(url.url), url);
+            }
+            return originalFetch.call(this, url, options);
+        };
+
+        const originalOpen = XMLHttpRequest.prototype.open;
+        XMLHttpRequest.prototype.open = function (method, url, ...args) {
+            url = fixUrl(url);
+            return originalOpen.call(this, method, url, ...args);
+        };
+
+        const originalAppendChild = Node.prototype.appendChild;
+        Node.prototype.appendChild = function (element) {
+            if (element && element.tagName === 'SCRIPT' && element.src) {
+                let fixedSrc = fixUrl(element.src);
+                if (fixedSrc !== element.src) {
+                    element.src = fixedSrc;
+                }
+            }
+            return originalAppendChild.call(this, element);
+        };
+
+        const baseUrl = 'https://cdn.jsdelivr.net/gh/reeyuki/slimeranch@main/Build/';
+        const files = [
+            { name: 'web.data.unityweb', chunks: 64 },
+            { name: 'web.wasm.code.unityweb', chunks: 4 }
+        ];
+
+        let totalChunks = 1;
+        for (let i = 0; i < files.length; i++) totalChunks += files[i].chunks;
+        let loadedChunks = 0;
+
+        function updateProgress() {
+            let pct = Math.floor((loadedChunks / totalChunks) * 100);
+            document.getElementById('loadingText').innerText = 'Loading assets... ' + pct + '%';
+            document.getElementById('progressFill').style.width = pct + '%';
+        }
+
+        async function fetchChunk(url) {
+            let response = await fetch(url);
+            let data = await response.arrayBuffer();
+            loadedChunks++;
+            updateProgress();
+            return data;
+        }
+
+        async function fetchAndReconstruct() {
+            try {
+                let results = {};
+                let fetchTasks = [];
+
+                for (let i = 0; i < files.length; i++) {
+                    let fileTask = (async () => {
+                        let promises = [];
+                        for (let j = 0; j < files[i].chunks; j++) {
+                            let chunkStr = j < 10 ? '0' + j : j;
+                            promises.push(fetchChunk(baseUrl + files[i].name + chunkStr));
+                        }
+                        let chunks = await Promise.all(promises);
+                        results[files[i].name] = URL.createObjectURL(new Blob(chunks));
+                    })();
+                    fetchTasks.push(fileTask);
+                }
+
+                let frameworkTask = (async () => {
+                    let frameworkResponse = await fetchChunk(baseUrl + 'web.wasm.framework.unityweb');
+                    results['web.wasm.framework.unityweb'] = URL.createObjectURL(new Blob([frameworkResponse]));
+                })();
+                fetchTasks.push(frameworkTask);
+
+                await Promise.all(fetchTasks);
+
+                initUnity(results);
+            } catch (e) {
+                document.getElementById('loadingText').innerText = 'Error loading assets!';
+                console.error(e);
+            }
+        }
+
+        let unityInstance = null;
+        function initUnity(assetUrls) {
+            document.getElementById('loadingText').innerText = 'Initializing Unity...';
+            let webJson = {
+                companyName: 'Monomi Park',
+                productName: 'Slime Rancher',
+                productVersion: '1.4.3',
+                dataUrl: assetUrls['web.data.unityweb'],
+                wasmCodeUrl: assetUrls['web.wasm.code.unityweb'],
+                wasmFrameworkUrl: assetUrls['web.wasm.framework.unityweb'],
+                graphicsAPI: ['WebGL 2.0', 'WebGL 1.0'],
+                webglContextAttributes: { preserveDrawingBuffer: false },
+                splashScreenStyle: 'Dark',
+                backgroundColor: '#121212',
+                developmentBuild: false,
+                multithreading: false,
+                unityVersion: '2019.4.33f1'
+            };
+
+            let webJsonBlob = new Blob([JSON.stringify(webJson)], { type: 'application/json' });
+            let webJsonUrl = URL.createObjectURL(webJsonBlob);
+
+            unityInstance = UnityLoader.instantiate('unityContainer', webJsonUrl, {
+                onProgress: function (instance, progress) {
+                    if (progress === 1) {
+                        document.getElementById('loadingScreen').style.display = 'none';
+                        document.getElementById('fullscreenBtn').style.display = 'block';
+                    } else {
+                        let pct = Math.floor(progress * 100);
+                        document.getElementById('loadingText').innerText = 'Starting Game... ' + pct + '%';
+                        document.getElementById('progressFill').style.width = pct + '%';
+                    }
+                }
+            });
+        }
+
+        fetchAndReconstruct();
+    </script>
+</body>
+
+</html>
