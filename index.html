@@ -71,7 +71,8 @@
             background-color: rgba(0, 0, 0, 0.8);
         }
     </style>
-    <script src="https://cdn.jsdelivr.net/gh/reeyuki/slimeranch@main/Build/UnityLoader.js"></script>
+    <script
+        src="https://quantil.jsdelivr.net/gh/reeyuki/slimeranch@5628f1cdf3e2d67751ccdfa76c8717d4316b3b16/Build/UnityLoader.js"></script>
 </head>
 
 <body>
@@ -87,8 +88,11 @@
 
     <script>
         function fixUrl(url) {
-            if (typeof url === 'string' && url.indexOf('blob:http') !== -1) {
-                return url.substring(url.indexOf('blob:http'));
+            if (typeof url === 'string') {
+                let blobIndex = url.lastIndexOf('blob:');
+                if (blobIndex !== -1) {
+                    return url.substring(blobIndex);
+                }
             }
             return url;
         }
@@ -97,7 +101,7 @@
         window.fetch = function (url, options) {
             if (typeof url === 'string') {
                 url = fixUrl(url);
-            } else if (url && url.url && url.url.indexOf('blob:http') !== -1) {
+            } else if (url && url.url && url.url.indexOf('blob:') !== -1) {
                 url = new Request(fixUrl(url.url), url);
             }
             return originalFetch.call(this, url, options);
@@ -120,7 +124,7 @@
             return originalAppendChild.call(this, element);
         };
 
-        const baseUrl = 'https://cdn.jsdelivr.net/gh/reeyuki/slimeranch@main/Build/';
+        const baseUrl = 'https://quantil.jsdelivr.net/gh/reeyuki/slimeranch@5628f1cdf3e2d67751ccdfa76c8717d4316b3b16/Build/';
         const files = [
             { name: 'web.data.unityweb', chunks: 64 },
             { name: 'web.wasm.code.unityweb', chunks: 4 }
